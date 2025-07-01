@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AG Grid CDN Example</title>
+
+  <!-- AG Grid Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@29.3.4/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@29.3.4/styles/ag-theme-alpine.css">
+
+  <!-- AG Grid Script (v29, UMD) -->
+  <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@29.3.4/dist/ag-grid-community.min.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    #myGrid {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="myGrid" class="ag-theme-alpine"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const columnDefs = [
+        { headerName: "Make", field: "make", checkboxSelection: true },
+        { headerName: "Model", field: "model" },
+        { headerName: "Price", field: "price" }
+      ];
+
+      const rowData = [
+        { make: "Toyota", model: "Celica", price: 35000 },
+        { make: "Ford", model: "Mondeo", price: 32000 },
+        { make: "Porsche", model: "Boxster", price: 72000 }
+      ];
+
+      const gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData,
+        rowSelection: 'multiple'
+      };
+
+      const eGridDiv = document.querySelector('#myGrid');
+      new agGrid.Grid(eGridDiv, gridOptions); // ✅ This works in v29
+    });
+  </script>
+
+</body>
+</html>
