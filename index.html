@@ -2,19 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AG Grid CDN Example</title>
+  <title>Enhanced AG Grid Example</title>
 
   <!-- AG Grid Styles -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@29.3.4/styles/ag-grid.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@29.3.4/styles/ag-theme-alpine.css">
 
-  <!-- AG Grid Script (v29, UMD) -->
+  <!-- AG Grid Script -->
   <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@29.3.4/dist/ag-grid-community.min.js"></script>
 
   <style>
     html, body {
       height: 100%;
       margin: 0;
+      font-family: Arial, sans-serif;
     }
     #myGrid {
       height: 100%;
@@ -29,25 +30,42 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const columnDefs = [
-        { headerName: "Make", field: "make", checkboxSelection: true },
-        { headerName: "Model", field: "model" },
-        { headerName: "Price", field: "price" }
+        { headerName: "ID", field: "id", checkboxSelection: true },
+        { headerName: "Make", field: "make", sortable: true, filter: true },
+        { headerName: "Model", field: "model", sortable: true, filter: true, editable: true },
+        { headerName: "Price ($)", field: "price", sortable: true, filter: "agNumberColumnFilter" },
+        { headerName: "Year", field: "year", sortable: true, filter: "agNumberColumnFilter" },
+        { headerName: "Color", field: "color", editable: true },
+        { headerName: "Fuel Type", field: "fuel", filter: true },
+        { headerName: "Mileage (km)", field: "mileage", filter: "agNumberColumnFilter" },
+        { headerName: "VIN", field: "vin", tooltipField: "vin" }
       ];
 
       const rowData = [
-        { make: "Toyota", model: "Celica", price: 35000 },
-        { make: "Ford", model: "Mondeo", price: 32000 },
-        { make: "Porsche", model: "Boxster", price: 72000 }
+        { id: 1, make: "Toyota", model: "Corolla", price: 18000, year: 2020, color: "Red", fuel: "Petrol", mileage: 25000, vin: "JTDBU4EE9B9123456" },
+        { id: 2, make: "Honda", model: "Civic", price: 22000, year: 2021, color: "Blue", fuel: "Petrol", mileage: 18000, vin: "2HGFC2F69KH512345" },
+        { id: 3, make: "Ford", model: "Focus", price: 21000, year: 2019, color: "White", fuel: "Diesel", mileage: 30000, vin: "1FADP3F23GL123456" },
+        { id: 4, make: "BMW", model: "X5", price: 45000, year: 2022, color: "Black", fuel: "Diesel", mileage: 12000, vin: "5UXKR0C58H0X12345" },
+        { id: 5, make: "Porsche", model: "Boxster", price: 72000, year: 2023, color: "Silver", fuel: "Petrol", mileage: 5000, vin: "WP0CA2A87GS123456" },
+        { id: 6, make: "Tesla", model: "Model 3", price: 39000, year: 2023, color: "Gray", fuel: "Electric", mileage: 10000, vin: "5YJ3E1EA8HF123456" }
       ];
 
       const gridOptions = {
         columnDefs: columnDefs,
         rowData: rowData,
-        rowSelection: 'multiple'
+        rowSelection: 'multiple',
+        pagination: true,
+        paginationPageSize: 5,
+        defaultColDef: {
+          resizable: true,
+          sortable: true,
+          filter: true
+        },
+        enableBrowserTooltips: true
       };
 
       const eGridDiv = document.querySelector('#myGrid');
-      new agGrid.Grid(eGridDiv, gridOptions); // ✅ This works in v29
+      new agGrid.Grid(eGridDiv, gridOptions);
     });
   </script>
 
